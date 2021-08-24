@@ -132,15 +132,8 @@ function adGroupCreateSquare(element){
     element.insertAdjacentHTML("afterbegin", insertadgroupersquare + insertadgroupersquare + insertadgroupersquare + insertadgroupersquare)
 }
 
-function createAds(element, index, total){
-  fetch("https://www.inadsglobal.com/view/" + element.getAttribute("name") + "/" + document.title)
-  .then(res=>{adname = res.url.substring(res.url.lastIndexOf("/") + 1); element.setAttribute('onclick', "inadsclick(" + adname + ", this)"); return res.text()})
-  .then(blob=>{
-
-    console.log("%c Adverts by InAds ", "background:rgb(0, 255, 255); color: white")
-
-    if(!(blob.includes("data"))){
-        if (element.getAttribute("name") == "inadsquare") {
+function InAdsEMPBid(element, index, total){
+    if (element.getAttribute("name") == "inadsquare") {
             element.setAttribute("id", "inads-test-banner-300x250")
         }
         if (element.getAttribute("name") == "inadstandard") {
@@ -151,10 +144,8 @@ function createAds(element, index, total){
         }
         
         if(index === (total - 1)){
-            initBidsRTBH()
-        }else{
-        
-         pbjs.que.push(function() {
+            initBidsRTBH() 
+            pbjs.que.push(function() {
              pbjs.requestBids({
                timeout: PREBID_TIMEOUT,
                bidsBackHandler: function() {
@@ -164,6 +155,17 @@ function createAds(element, index, total){
              });
            });
         }
+}
+
+function createAds(element, index, total){
+  fetch("https://www.inadsglobal.com/view/" + element.getAttribute("name") + "/" + document.title)
+  .then(res=>{adname = res.url.substring(res.url.lastIndexOf("/") + 1); element.setAttribute('onclick', "inadsclick(" + adname + ", this)"); return res.text()})
+  .then(blob=>{
+
+    console.log("%c Adverts by InAds ", "background:rgb(0, 255, 255); color: white")
+
+    if(!(blob.includes("data"))){
+        InAdsEMPBid(element, index, total)
         return;
     }
 
