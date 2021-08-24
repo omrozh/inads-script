@@ -3,7 +3,7 @@ let adname = ""
 let apiKey = ""
 let textcontent = ""
 window.initRTB = false
-const GAM_PATH = '/2535231/inads-advt';
+const GAM_PATH = '/19968336/header-bid-tag-0';
 
 class adUnit {
     constructor(slot, region) {
@@ -36,19 +36,15 @@ class adUnit {
     node.parentNode.insertBefore(gads, node);
 })();
 
-function sendAdserverRequest(adUnits) {
-       googletag.enableServices();
-       if (pbjs.adserverRequestSent) return;
-       pbjs.adserverRequestSent = true;
-       googletag.cmd.push(function() {
-         pbjs.que.push(function() {
-           pbjs.setTargetingForGPTAsync();
-           googletag.pubads().refresh();
-         });
-       });
-       adUnits.forEach(adunit => {
-        googletag.display(adunit.code);
-       });
+function initAdserver() {
+    if (pbjs.initAdserverSet) return;
+    pbjs.initAdserverSet = true;
+    googletag.cmd.push(function() {
+        pbjs.que.push(function() {
+            pbjs.setTargetingForGPTAsync();
+            googletag.pubads().refresh();
+        });
+    });
 }
 
 function initBidsRTBH(){
@@ -79,11 +75,12 @@ function initBidsRTBH(){
 
     
     pbjs.que.push(function() {
-       pbjs.addAdUnits(adUnits);
-       pbjs.requestBids({
-           timeout: 1000
-       });
-     });
+        pbjs.addAdUnits(adUnits);
+        pbjs.requestBids({
+            bidsBackHandler: initAdserver,
+            timeout: PREBID_TIMEOUT
+        });
+    });
     
     setTimeout(() => {
         sendAdserverRequest(adUnits);
@@ -97,7 +94,10 @@ function initBidsRTBH(){
           adUnit.mediaTypes.banner.sizes,
           adUnit.id
         )
-        .addService(googletag.pubads())
+        .addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        googletag.display(adUnit.id);
      });
     }
     
@@ -159,7 +159,7 @@ function InAdsEMPBid(element, index, total){
         
         if(index === (total - 1)){
             
-            initBidsRTBH() 
+           initBidsRTBH() 
             pbjs.que.push(function() {
              pbjs.requestBids({
                timeout: PREBID_TIMEOUT,
