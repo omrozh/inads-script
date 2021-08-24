@@ -140,11 +140,11 @@ function createAds(element, index, total){
             
             pbjs.que.push(function() {
                 pbjs.requestBids({
-                    timeout: 1000
                     bidsBackHandler: function() {
                      pbjs.setTargetingForGPTAsync();
                      googletag.pubads().refresh();
-                   }
+                   },
+                   timeout: 1000
                 })
             });
         }
