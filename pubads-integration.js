@@ -36,6 +36,16 @@ class adUnit {
     node.parentNode.insertBefore(gads, node);
 })();
 
+function sendAdserverRequest() {
+       if (pbjs.adserverRequestSent) return;
+       pbjs.adserverRequestSent = true;
+       googletag.cmd.push(function() {
+         pbjs.que.push(function() {
+           pbjs.setTargetingForGPTAsync();
+           googletag.pubads().refresh();
+      });
+   });
+}
 
 function initBidsRTBH(){
     const PREBID_TIMEOUT = 1000;
@@ -44,8 +54,11 @@ function initBidsRTBH(){
     let adUnits;
     
     var googletag = googletag || {};
-    googletag.cmd = googletag.cmd || [];
-
+     googletag.cmd = googletag.cmd || [];
+     googletag.cmd.push(function() {
+       googletag.pubads().disableInitialLoad();
+     });
+    
     if(window.initRTB){
         return;
     }    
@@ -61,9 +74,12 @@ function initBidsRTBH(){
     });
 
     
-    pbjs.que.push(() => {
-        pbjs.addAdUnits(adUnits);
-    });
+    pbjs.que.push(function() {
+       pbjs.addAdUnits(adUnits);
+       pbjs.requestBids({
+         bidsBackHandler: sendAdserverRequest
+       });
+     });
     
     const defineSlots = (adUnits) => {
     adUnits.forEach(adUnit => {
@@ -76,8 +92,6 @@ function initBidsRTBH(){
         .addService(googletag.pubads())
      });
     
-       googletag.enableServices();
-}
     window.initRTB = true;
 }
 
@@ -137,18 +151,18 @@ function createAds(element, index, total){
         
         if(index === (total - 1)){
             initBidsRTBH()
-            
-            pbjs.que.push(function() {
-                pbjs.requestBids({
-                    bidsBackHandler: function() {
-                        googletag.cmd.push(function() {
-                           pbjs.setTargetingForGPTAsync && pbjs.setTargetingForGPTAsync();
-                           googletag.pubads().refresh()
-                        });
-                   },
-                   timeout: 1000
-                })
-            });
+        }else{
+        
+         pbjs.que.push(function() {
+            pbjs.requestBids({
+                timeout: PREBID_TIMEOUT,
+                adUnitCodes: adSlots,
+                bidsBackHandler: function() {
+                    pbjs.setTargetingForGPTAsync(adSlots);
+                    googletag.pubads().refresh(defineSlots);
+           }
+         });
+       });
         }
         return;
     }
