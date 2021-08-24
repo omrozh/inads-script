@@ -156,11 +156,10 @@ function InAdsEMPBid(element, index, total){
         }
         
         if(index === (total - 1)){
-            
-           initBidsRTBH() 
-            pbjs.que.push(function() {
+           initBidsRTBH()
+           pbjs.que.push(function() {
              pbjs.requestBids({
-               timeout: PREBID_TIMEOUT,
+               timeout: 1000,
                bidsBackHandler: function() {
                  pbjs.setTargetingForGPTAsync();
                  googletag.pubads().refresh();
