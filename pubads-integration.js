@@ -93,9 +93,9 @@ function initBidsRTBH(){
     adUnits.forEach(adUnit => {
       googletag
         .defineSlot(
-          `${GAM_PATH}/banner/${adUnit.code}`,
+          "${GAM_PATH}/banner/${adUnit.id}",
           adUnit.mediaTypes.banner.sizes,
-          adUnit.code
+          adUnit.id
         )
         .addService(googletag.pubads())
      });
