@@ -91,6 +91,7 @@ function initBidsRTBH(){
         )
         .addService(googletag.pubads())
      });
+    }
     
     window.initRTB = true;
 }
