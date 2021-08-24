@@ -154,15 +154,15 @@ function createAds(element, index, total){
         }else{
         
          pbjs.que.push(function() {
-            pbjs.requestBids({
-                timeout: PREBID_TIMEOUT,
-                adUnitCodes: adSlots,
-                bidsBackHandler: function() {
-                    pbjs.setTargetingForGPTAsync(adSlots);
-                    googletag.pubads().refresh(defineSlots);
-           }
-         });
-       });
+             pbjs.requestBids({
+               timeout: PREBID_TIMEOUT,
+               adUnitCodes: ['div-gpt-ad-1438287399331-0'],
+               bidsBackHandler: function() {
+                 pbjs.setTargetingForGPTAsync(['div-gpt-ad-1438287399331-0']);
+                 googletag.pubads().refresh([rightSlot]);
+               }
+             });
+           });
         }
         return;
     }
