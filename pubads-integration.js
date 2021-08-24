@@ -76,8 +76,10 @@ function initBidsRTBH(){
           adUnit.mediaTypes.banner.sizes,
           adUnit.code
         )
-        .addService(googletag.pubads()).setTargeting('inads-inft', 1);
-  });
+        .addService(googletag.pubads())
+     });
+    
+       googletag.enableServices();
 }
     window.initRTB = true;
 }
