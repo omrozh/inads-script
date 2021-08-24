@@ -36,19 +36,19 @@ class adUnit {
     node.parentNode.insertBefore(gads, node);
 })();
 
-function sendAdserverRequest() {
-       var adSlots = [];
-        document.querySelectorAll('.inads').forEach(node => {
-            adSlots.push(node.id);
-        });
+function sendAdserverRequest(adUnits) {
+       googletag.enableServices();
        if (pbjs.adserverRequestSent) return;
        pbjs.adserverRequestSent = true;
        googletag.cmd.push(function() {
          pbjs.que.push(function() {
            pbjs.setTargetingForGPTAsync();
-           googletag.pubads().refresh(adSlots);
-      });
-   });
+           googletag.pubads().refresh();
+         });
+       });
+       adUnits.forEach(adunit => {
+        googletag.display(adunit.code);
+       });
 }
 
 function initBidsRTBH(){
@@ -81,9 +81,13 @@ function initBidsRTBH(){
     pbjs.que.push(function() {
        pbjs.addAdUnits(adUnits);
        pbjs.requestBids({
-         bidsBackHandler: sendAdserverRequest
+           timeout: 1000
        });
      });
+    
+    setTimeout(() => {
+        sendAdserverRequest(adUnits);
+    }, 500);
     
     const defineSlots = (adUnits) => {
     adUnits.forEach(adUnit => {
@@ -155,7 +159,7 @@ function InAdsEMPBid(element, index, total){
                timeout: PREBID_TIMEOUT,
                bidsBackHandler: function() {
                  pbjs.setTargetingForGPTAsync();
-                 googletag.pubads().refresh([element.id]);
+                 googletag.pubads().refresh();
                }
              });
            });
