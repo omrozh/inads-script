@@ -45,9 +45,6 @@ function initBidsRTBH(){
     
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
-    googletag.cmd.push(function() {
-       googletag.pubads().disableInitialLoad();
-    });
 
     if(window.initRTB){
         return;
@@ -144,8 +141,10 @@ function createAds(element, index, total){
             pbjs.que.push(function() {
                 pbjs.requestBids({
                     bidsBackHandler: function() {
-                     pbjs.setTargetingForGPTAsync();
-                     googletag.pubads().refresh().setTargeting('inads-inft', 1);;
+                        googletag.cmd.push(function() {
+                           pbjs.setTargetingForGPTAsync && pbjs.setTargetingForGPTAsync();
+                           googletag.pubads().refresh()
+                        });
                    },
                    timeout: 1000
                 })
