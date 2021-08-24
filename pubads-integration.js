@@ -143,14 +143,16 @@ function getRandomInt(min, max) {
 }
 
 function InAdsEMPBid(element, index, total){
-    if (element.getAttribute("name") == "inadsquare") {
-            element.setAttribute("id", "inads-test-banner-300x250" + getRandomInt(1000, 9999))
-        }
-        if (element.getAttribute("name") == "inadstandard") {
-            element.setAttribute("id", "inads-test-banner-728x90" + getRandomInt(1000, 9999))
-        }
-        if (element.getAttribute("name") == "inadstandard") {
-            element.setAttribute("id", "inads-test-banner-600x160" + getRandomInt(1000, 9999))
+        if(!pbjs.initAdserverSet){
+            if (element.getAttribute("name") == "inadsquare") {
+                element.setAttribute("id", "inads-test-banner-300x250" + getRandomInt(1000, 9999))
+            }
+            if (element.getAttribute("name") == "inadstandard") {
+                element.setAttribute("id", "inads-test-banner-728x90" + getRandomInt(1000, 9999))
+            }
+            if (element.getAttribute("name") == "inadstandard") {
+                element.setAttribute("id", "inads-test-banner-600x160" + getRandomInt(1000, 9999))
+            }
         }
         
         if(index === (total - 1)){
