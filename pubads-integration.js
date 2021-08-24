@@ -76,7 +76,7 @@ function initBidsRTBH(){
           adUnit.mediaTypes.banner.sizes,
           adUnit.code
         )
-        .addService(googletag.pubads())
+        .addService(googletag.pubads()).setTargeting('inads-inft', 1);
   });
 }
     window.initRTB = true;
@@ -143,7 +143,7 @@ function createAds(element, index, total){
                 pbjs.requestBids({
                     bidsBackHandler: function() {
                      pbjs.setTargetingForGPTAsync();
-                     googletag.pubads().refresh();
+                     googletag.pubads().refresh().setTargeting('inads-inft', 1);;
                    },
                    timeout: 1000
                 })
