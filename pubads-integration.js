@@ -157,10 +157,9 @@ function createAds(element, index, total){
          pbjs.que.push(function() {
              pbjs.requestBids({
                timeout: PREBID_TIMEOUT,
-               adUnitCodes: ['div-gpt-ad-1438287399331-0'],
                bidsBackHandler: function() {
-                 pbjs.setTargetingForGPTAsync(['div-gpt-ad-1438287399331-0']);
-                 googletag.pubads().refresh([rightSlot]);
+                 pbjs.setTargetingForGPTAsync();
+                 googletag.pubads().refresh();
                }
              });
            });
