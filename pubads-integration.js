@@ -82,10 +82,6 @@ function initBidsRTBH(){
         });
     });
     
-    setTimeout(() => {
-        sendAdserverRequest(adUnits);
-    }, 500);
-    
     const defineSlots = (adUnits) => {
     adUnits.forEach(adUnit => {
       googletag
