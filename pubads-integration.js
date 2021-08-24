@@ -10,7 +10,7 @@ class adUnit {
       this.code = `${slot}`;
       this.mediaTypes = {
           banner: {
-            sizes: [slot.replace('inads-test-banner-', '').split('x').map(dimension => Number(dimension))],
+            sizes: [slot.replace('inads-test-banner-', '').slice(0, -4).split('x').map(dimension => Number(dimension))],
           }
       },
         this.bids = [
@@ -140,15 +140,21 @@ function adGroupCreateSquare(element){
     element.insertAdjacentHTML("afterbegin", insertadgroupersquare + insertadgroupersquare + insertadgroupersquare + insertadgroupersquare)
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 function InAdsEMPBid(element, index, total){
     if (element.getAttribute("name") == "inadsquare") {
-            element.setAttribute("id", "inads-test-banner-300x250")
+            element.setAttribute("id", "inads-test-banner-300x250" + getRandomInt(1000, 9999))
         }
         if (element.getAttribute("name") == "inadstandard") {
-            element.setAttribute("id", "inads-test-banner-728x90")
+            element.setAttribute("id", "inads-test-banner-728x90" + getRandomInt(1000, 9999))
         }
         if (element.getAttribute("name") == "inadstandard") {
-            element.setAttribute("id", "inads-test-banner-600x160")
+            element.setAttribute("id", "inads-test-banner-600x160" + getRandomInt(1000, 9999))
         }
         
         if(index === (total - 1)){
