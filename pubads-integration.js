@@ -3,6 +3,7 @@ let adname = ""
 let apiKey = ""
 let textcontent = ""
 window.initRTB = false
+const GAM_PATH = '/2535231/inads-tests';
 
 class adUnit {
     constructor(slot, region) {
