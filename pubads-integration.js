@@ -3,7 +3,7 @@ let adname = ""
 let apiKey = ""
 let textcontent = ""
 window.initRTB = false
-const GAM_PATH = '/2535231/inads-tests';
+const GAM_PATH = '/2535231/inads-advt';
 
 class adUnit {
     constructor(slot, region) {
@@ -37,12 +37,16 @@ class adUnit {
 })();
 
 function sendAdserverRequest() {
+       var adSlots = [];
+        document.querySelectorAll('.inads').forEach(node => {
+            adSlots.push(node.id);
+        });
        if (pbjs.adserverRequestSent) return;
        pbjs.adserverRequestSent = true;
        googletag.cmd.push(function() {
          pbjs.que.push(function() {
            pbjs.setTargetingForGPTAsync();
-           googletag.pubads().refresh();
+           googletag.pubads().refresh(adSlots);
       });
    });
 }
@@ -144,13 +148,14 @@ function InAdsEMPBid(element, index, total){
         }
         
         if(index === (total - 1)){
+            
             initBidsRTBH() 
             pbjs.que.push(function() {
              pbjs.requestBids({
                timeout: PREBID_TIMEOUT,
                bidsBackHandler: function() {
                  pbjs.setTargetingForGPTAsync();
-                 googletag.pubads().refresh();
+                 googletag.pubads().refresh([element.id]);
                }
              });
            });
