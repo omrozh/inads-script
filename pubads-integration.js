@@ -25,6 +25,40 @@ class adUnit {
     }
   };
 
+const setPrebidConfig = (pbjs) => {
+  pbjs.setConfig({
+    debug: true,
+  });
+
+  pbjs.bidderSettings = {
+    standard: {
+      bidCpmAdjustment: (bidCpm, bid) => {
+        return 20.00;
+      },
+      adserverTargeting: [{
+        key: "hb_bidder",
+        val: function (bidResponse) {
+          return bidResponse.bidderCode;
+        }
+      },
+      {
+        key: "hb_adid",
+        val: function (bidResponse) {
+          return bidResponse.adId;
+        }
+      },
+      {
+        key: 'hb_format',
+        val: function (bidResponse) {
+          return bidResponse.mediaType;
+        }
+      }]
+    }
+  }
+}
+
+
+
 (function () {
     var gads = document.createElement('script');
     gads.async = true;
@@ -65,6 +99,8 @@ function initBidsRTBH(){
     
     window.pbjs = pbjs || {};
     pbjs.que = pbjs.que || [];
+    
+    setPrebidConfig(pbjs);
 
     document.querySelectorAll('.inads').forEach(node => {
         adSlots.push(node.id);
