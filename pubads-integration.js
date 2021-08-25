@@ -25,6 +25,19 @@ class adUnit {
     }
   };
 
+const renderDisplayPlaceholder = (slot, slotName) => {
+  if (slot) {
+    const slotDiv = document.querySelector(`#${slotName}`);
+    const placeholder = document.createElement('img');
+    const slotSizesForUrl = slot.mediaTypes.banner.sizes[0].toString().replace(',', 'x');
+    const placeholderUrl = `https://place-hold.it/${slotSizesForUrl}/452846/fff?text=${slotSizesForUrl}+-+No+ad`;
+
+    placeholder.src = placeholderUrl;
+    slotDiv.appendChild(placeholder);
+    toggleSlotLoading(slotDiv);
+  }
+}
+
 const setPrebidConfig = (pbjs) => {
   pbjs.setConfig({
     debug: true,
@@ -131,6 +144,16 @@ function initBidsRTBH(){
         googletag.enableServices();
         googletag.display(adUnit.id);
      });
+      googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+        const slotCode = event.slot.getAdUnitPath().substring(27);
+        const slot = window.adUnits.filter(unit => unit.code.includes(slotCode))[0];
+
+        if (event.isEmpty) {
+            if (slotCode.indexOf('native') === -1) {
+                renderDisplayPlaceholder(slot, slotCode);
+            }
+        }
+      });
     }
     
     window.initRTB = true;
