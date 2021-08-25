@@ -59,12 +59,6 @@ const setPrebidConfig = (pbjs) => {
         val: function (bidResponse) {
           return bidResponse.adId;
         }
-      },
-      {
-        key: 'hb_format',
-        val: function (bidResponse) {
-          return bidResponse.mediaType;
-        }
       }]
     }
   }
