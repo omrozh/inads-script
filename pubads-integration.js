@@ -29,7 +29,7 @@ const renderDisplayPlaceholder = (slot, slotName) => {
   if (slot) {
     const slotDiv = document.querySelector(`#${slotName}`);
     const placeholder = document.createElement('img');
-    const slotSizesForUrl = slot.mediaTypes.banner.sizes[0].toString().replace(',', 'x');
+    const slotSizesForUrl = [300, 250]
     const placeholderUrl = `https://place-hold.it/${slotSizesForUrl}/452846/fff?text=${slotSizesForUrl}+-+No+ad`;
 
     placeholder.src = placeholderUrl;
