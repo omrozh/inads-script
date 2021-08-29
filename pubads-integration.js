@@ -119,11 +119,11 @@ function initBidsRTBH(){
           "${GAM_PATH}/banner/${adUnit.id}",
           adUnit.mediaTypes.banner.sizes,
           adUnit.id
+          googletag.enableServices();
         )
         .addService(googletag.pubads());
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
-        googletag.display(adUnit.id);
+            googletag.display(adUnit.id);
+            console.log("ADSERVICE ADDED")
      });
      googletag.pubads().addEventListener('slotRenderEnded', (event) => {
         console.log("ADS RENDERED")
