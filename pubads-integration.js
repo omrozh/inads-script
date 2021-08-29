@@ -125,7 +125,9 @@ function initBidsRTBH(){
         googletag.enableServices();
         googletag.display(adUnit.id);
      });
-      
+     googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+        console.log("ADS RENDERED")
+     })
     }
     
     window.initRTB = true;
