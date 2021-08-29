@@ -91,17 +91,16 @@ const defineSlots = (adUnits) => {
   });
 }
 
-function initAdserver(adSlots) {
+function initAdserver() {
     if (pbjs.initAdserverSet) return;
     pbjs.initAdserverSet = true;
     googletag.cmd.push(function() {
         pbjs.que.push(function() {
             pbjs.setTargetingForGPTAsync();
-            googletag.pubads().refresh(defineSlots);
+            googletag.pubads().refresh();
         });
     });
 }
-
 
 
 function initBidsRTBH(){
@@ -136,13 +135,10 @@ function initBidsRTBH(){
     pbjs.que.push(function() {
         pbjs.addAdUnits(adUnits);
         pbjs.requestBids({
+            bidsBackHandler: initAdserver,
             timeout: PREBID_TIMEOUT
         });
     });
-    
-    setTimeout(() => {
-        initAdserver(adSlots)
-    }, 2000);
 
     googletag.cmd.push(() => {
         defineSlots(adUnits);
