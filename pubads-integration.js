@@ -64,13 +64,13 @@ const setPrebidConfig = (pbjs) => {
     node.parentNode.insertBefore(gads, node);
 })();
 
-function initAdserver() {
+function initAdserver(adSlots) {
     if (pbjs.initAdserverSet) return;
     pbjs.initAdserverSet = true;
     googletag.cmd.push(function() {
         pbjs.que.push(function() {
             pbjs.setTargetingForGPTAsync();
-            googletag.pubads().refresh();
+            googletag.pubads().refresh(adSlots);
         });
     });
 }
@@ -134,22 +134,25 @@ function initBidsRTBH(){
     pbjs.que.push(function() {
         pbjs.addAdUnits(adUnits);
         pbjs.requestBids({
-            bidsBackHandler: initAdserver,
             timeout: PREBID_TIMEOUT
         });
     });
+    
+    setTimeout(() => {
+        initAdserver(adSlots)
+    }, 2000);
 
-  googletag.cmd.push(() => {
-    defineSlots(adUnits);
-    !disableSingleRequest && googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-    adUnits.forEach(adunit => {
-      googletag.display(adunit.code);
-    });
-    googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-       console.log("ADS RENDERED")
-   })
-  });
+    googletag.cmd.push(() => {
+        defineSlots(adUnits);
+        !disableSingleRequest && googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        adUnits.forEach(adunit => {
+          googletag.display(adunit.code);
+        });
+        googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+           console.log("ADS RENDERED")
+       })
+     });
 
    
     
