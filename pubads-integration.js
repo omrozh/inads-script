@@ -138,10 +138,6 @@ function initBidsRTBH(){
             timeout: PREBID_TIMEOUT
         });
     });
-    
-    setTimeout(() => {
-    initAdserver();
-  }, FAILSAFE_TIMEOUT);
 
   googletag.cmd.push(() => {
     defineSlots(adUnits);
