@@ -75,6 +75,33 @@ function initAdserver() {
     });
 }
 
+const defineSlots = (adUnits) => {
+  adUnits.forEach(adUnit => {
+    const isNative = !!adUnit.mediaTypes.native;
+    if (isNative) {
+      googletag
+        .defineSlot(
+          `${GAM_PATH}/native/${adUnit.code}`, 
+          
+          adUnit.code // slot node id
+        )
+        
+        .addService(googletag.pubads())
+        .setTargeting('test-site', 1);
+    } else {
+      googletag
+        .defineSlot(
+          `${GAM_PATH}/banner/${adUnit.code}`,
+          adUnit.mediaTypes.banner.sizes,
+          adUnit.code
+        )
+        .addService(googletag.pubads())
+        .setTargeting('test-site', 1);
+    }
+
+  });
+}
+
 function initBidsRTBH(){
     const PREBID_TIMEOUT = 1000;
     const region = "prebid-eu";
@@ -112,23 +139,23 @@ function initBidsRTBH(){
         });
     });
     
-    const defineSlots = (adUnits) => {
-    adUnits.forEach(adUnit => {
-      googletag
-        .defineSlot(
-          "${GAM_PATH}/banner/${adUnit.id}",
-          adUnit.mediaTypes.banner.sizes,
-          adUnit.id
-          googletag.enableServices();
-        )
-        .addService(googletag.pubads());
-            googletag.display(adUnit.id);
-            console.log("ADSERVICE ADDED")
-     });
-     googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-        console.log("ADS RENDERED")
-     })
-    }
+    setTimeout(() => {
+    initAdserver();
+  }, FAILSAFE_TIMEOUT);
+
+  googletag.cmd.push(() => {
+    defineSlots(adUnits);
+    !disableSingleRequest && googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+    adUnits.forEach(adunit => {
+      googletag.display(adunit.code);
+    });
+    googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+       console.log("ADS RENDERED")
+   })
+  });
+
+   
     
     window.initRTB = true;
 }
