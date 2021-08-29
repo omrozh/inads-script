@@ -64,17 +64,6 @@ const setPrebidConfig = (pbjs) => {
     node.parentNode.insertBefore(gads, node);
 })();
 
-function initAdserver(adSlots) {
-    if (pbjs.initAdserverSet) return;
-    pbjs.initAdserverSet = true;
-    googletag.cmd.push(function() {
-        pbjs.que.push(function() {
-            pbjs.setTargetingForGPTAsync();
-            googletag.pubads().refresh(adSlots);
-        });
-    });
-}
-
 const defineSlots = (adUnits) => {
   adUnits.forEach(adUnit => {
     const isNative = !!adUnit.mediaTypes.native;
@@ -101,6 +90,19 @@ const defineSlots = (adUnits) => {
 
   });
 }
+
+function initAdserver(adSlots) {
+    if (pbjs.initAdserverSet) return;
+    pbjs.initAdserverSet = true;
+    googletag.cmd.push(function() {
+        pbjs.que.push(function() {
+            pbjs.setTargetingForGPTAsync();
+            googletag.pubads().refresh(defineSlots);
+        });
+    });
+}
+
+
 
 function initBidsRTBH(){
     const PREBID_TIMEOUT = 1000;
