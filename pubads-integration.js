@@ -56,7 +56,7 @@ function main(){
 
     (function () {
         var gads = document.createElement('script');
-        gads.async = true;
+        gads.async = false;
         gads.type = 'text/javascript';
         var useSSL = 'https:' == document.location.protocol;
         gads.src = (useSSL ? 'https:' : 'http:') +
