@@ -3,7 +3,7 @@ let adname = ""
 let apiKey = ""
 let textcontent = ""
 window.initRTB = false
-const GAM_PATH = '/19968336/header-bid-tag-0';
+const GAM_PATH = '/31695560/header-bid-tag-0';
 
 function main(){
     class adUnit {
