@@ -96,6 +96,7 @@ function main(){
         pbjs.initAdserverSet = true;
         googletag.cmd.push(function() {
             pbjs.que.push(function() {
+                googletag.pubads().refresh();
                 console.log("Push Init")
             });
         });
