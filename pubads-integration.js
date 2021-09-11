@@ -158,7 +158,7 @@ function main(){
               alert("Render Check")
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-               console.log("ADS RENDERED")
+               alert("ADS RENDERED")
            })
          });
 
