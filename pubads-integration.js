@@ -152,14 +152,11 @@ function main(){
             defineSlots(adUnits);
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
-            alert("Google Tag")
             adUnits.forEach(adunit => {
-              alert("Render Start")
               googletag.display(adunit.code);
-              alert("Render Check")
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-               alert("ADS RENDERED")
+               console.log("ADS RENDERED")
            })
          });
 
