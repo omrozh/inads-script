@@ -116,6 +116,10 @@ function main(){
         
         window.googletag = googletag || {};
         googletag.cmd = googletag.cmd || [];
+        
+        googletag.cmd.push(() => {
+            googletag.pubads().disableInitialLoad();
+        });
 
         if(window.initRTB){
             return;
