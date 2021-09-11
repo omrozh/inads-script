@@ -107,6 +107,12 @@ function main(){
         const region = "prebid-eu";
         var adSlots = [];
         let adUnits;
+        
+        
+
+
+        window.googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
@@ -118,11 +124,6 @@ function main(){
             return;
         }    
         
-        window.adUnits = adUnits;
-
-        window.googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-
         window.pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
 
@@ -134,6 +135,8 @@ function main(){
         adUnits = adSlots.map(slot => {
             return new adUnit(slot, region);
         });
+        
+        window.adUnits = adUnits;
 
 
         pbjs.que.push(function() {
