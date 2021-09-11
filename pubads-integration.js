@@ -63,6 +63,14 @@ function main(){
         var node = document.getElementsByTagName('script')[0];
         node.parentNode.insertBefore(gads, node);
     })();
+    
+    const getParameterByName = (name, url = window.location.href) => {
+      const clearName = name.replace(/[\[\]]/g, '\\$&'),
+        regex = new RegExp('[?&]' + clearName + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results || !results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 
     const defineSlots = (adUnits) => {
       adUnits.forEach(adUnit => {
