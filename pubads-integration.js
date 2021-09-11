@@ -225,7 +225,7 @@ function main(){
 
             if(index === (total - 1)){
                initBidsRTBH()
-                  if(pbjs.initAdserverSet)
+                  if(pbjs.initAdserverSet){
                        pbjs.que.push(function() {
                          pbjs.requestBids({
                            timeout: 1000,
@@ -235,6 +235,7 @@ function main(){
                            }
                          });
                        });
+                  }
                 }
             }
     }
