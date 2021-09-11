@@ -97,40 +97,32 @@ function main(){
         pbjs.initAdserverSet = true;
         googletag.cmd.push(function() {
             pbjs.que.push(function() {
-                pbjs.setTargetingForGPTAsync();
+                console.log("Push Init")
             });
         });
     }
 
 
     function initBidsRTBH(){
-        if(window.initRTB){
-            pbjs.que.push(function() {
-                 pbjs.requestBids({
-                   timeout: 1000,
-                   bidsBackHandler: function() {
-                     pbjs.setTargetingForGPTAsync();
-                     googletag.pubads().refresh();
-                   }
-                 });
-               });
-            }
-            return;
-        }
         const PREBID_TIMEOUT = 1000;
         const region = "prebid-eu";
+        var adSlots = [];
+        let adUnits;
 
         var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
+         googletag.cmd = googletag.cmd || [];
+         googletag.cmd.push(function() {
+             console.log("Push")
+         });
 
+        if(window.initRTB){
+            return;
+        }    
 
         window.pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
 
         setPrebidConfig(pbjs);
-    
-        var adSlots = [];
-        let adUnits;
 
         document.querySelectorAll('.inads').forEach(node => {
             adSlots.push(node.id);
@@ -222,6 +214,16 @@ function main(){
 
             if(index === (total - 1)){
                initBidsRTBH()
+               pbjs.que.push(function() {
+                 pbjs.requestBids({
+                   timeout: 1000,
+                   bidsBackHandler: function() {
+                     pbjs.setTargetingForGPTAsync();
+                     googletag.pubads().refresh();
+                   }
+                 });
+               });
+            }
     }
 
     function createAds(element, index, total){
