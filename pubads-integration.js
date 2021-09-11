@@ -224,18 +224,17 @@ function main(){
             }
 
             if(index === (total - 1)){
-               initBidsRTBH()
-                  if(pbjs.initAdserverSet){
-                       pbjs.que.push(function() {
-                         pbjs.requestBids({
-                           timeout: 1000,
-                           bidsBackHandler: function() {
-                             pbjs.setTargetingForGPTAsync();
-                             googletag.pubads().refresh();
-                           }
-                         });
-                       });
-                  }
+                initBidsRTBH()
+                if(pbjs.initAdserverSet){
+                      pbjs.que.push(function() {
+                      pbjs.requestBids({
+                        timeout: 1000,
+                        bidsBackHandler: function() {
+                          pbjs.setTargetingForGPTAsync();
+                          googletag.pubads().refresh();
+                        }
+                      });
+                    });
                 }
             }
     }
