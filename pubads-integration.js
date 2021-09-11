@@ -108,9 +108,6 @@ function main(){
         var adSlots = [];
         let adUnits;
 
-         var googletag = googletag || {};
-         googletag.cmd = googletag.cmd || [];
-        
          window.googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
          
@@ -213,8 +210,6 @@ function main(){
     }
 
     function InAdsEMPBid(element, index, total){
-            var googletag = googletag || {};
-             googletag.cmd = googletag.cmd || [];
             
             window.googletag = googletag || {};
             googletag.cmd = googletag.cmd || [];
