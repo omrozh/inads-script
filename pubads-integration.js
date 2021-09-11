@@ -64,13 +64,6 @@ function main(){
         node.parentNode.insertBefore(gads, node);
     })();
     
-    const getParameterByName = (name, url = window.location.href) => {
-      const clearName = name.replace(/[\[\]]/g, '\\$&'),
-        regex = new RegExp('[?&]' + clearName + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-      if (!results || !results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
 
     const defineSlots = (adUnits) => {
       adUnits.forEach(adUnit => {
@@ -114,7 +107,6 @@ function main(){
         const region = "prebid-eu";
         var adSlots = [];
         let adUnits;
-        const disableSingleRequest = getParameterByName('singleRequest').toLowerCase() === 'false';
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
@@ -154,7 +146,7 @@ function main(){
 
         googletag.cmd.push(() => {
             defineSlots(adUnits);
-            !disableSingleRequest && googletag.pubads().enableSingleRequest();
+            googletag.pubads().enableSingleRequest();
             googletag.enableServices();
             adUnits.forEach(adunit => {
               googletag.display(adunit.code);
