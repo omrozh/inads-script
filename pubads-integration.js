@@ -118,7 +118,10 @@ function main(){
             return;
         }    
         
-        window.googletag = googletag;
+        window.adUnits = adUnits;
+
+        window.googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
 
         window.pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
