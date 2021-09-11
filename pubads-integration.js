@@ -74,7 +74,6 @@ function main(){
 
               adUnit.code // slot node id
             )
-
             .addService(googletag.pubads())
             .setTargeting('test-site', 1);
         } else {
@@ -146,7 +145,6 @@ function main(){
 
         googletag.cmd.push(() => {
             defineSlots(adUnits);
-            !disableSingleRequest && googletag.pubads().enableSingleRequest();
             googletag.enableServices();
             adUnits.forEach(adunit => {
               googletag.display(adunit.code);
