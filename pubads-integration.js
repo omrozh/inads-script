@@ -106,6 +106,7 @@ function main(){
         const region = "prebid-eu";
         var adSlots = [];
         let adUnits;
+        const disableSingleRequest = getParameterByName('singleRequest').toLowerCase() === 'false';
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
@@ -145,6 +146,7 @@ function main(){
 
         googletag.cmd.push(() => {
             defineSlots(adUnits);
+            !disableSingleRequest && googletag.pubads().enableSingleRequest();
             googletag.enableServices();
             adUnits.forEach(adunit => {
               googletag.display(adunit.code);
