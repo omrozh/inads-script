@@ -104,12 +104,6 @@ function main(){
 
 
     function initBidsRTBH(){
-        const PREBID_TIMEOUT = 1000;
-        const region = "prebid-eu";
-
-        var googletag = googletag || {};
-         googletag.cmd = googletag.cmd || [];
-
         if(window.initRTB){
             pbjs.que.push(function() {
                  pbjs.requestBids({
@@ -122,7 +116,13 @@ function main(){
                });
             }
             return;
-        }    
+        }
+        const PREBID_TIMEOUT = 1000;
+        const region = "prebid-eu";
+
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+
 
         window.pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
