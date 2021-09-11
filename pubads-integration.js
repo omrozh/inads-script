@@ -106,8 +106,6 @@ function main(){
     function initBidsRTBH(){
         const PREBID_TIMEOUT = 1000;
         const region = "prebid-eu";
-        var adSlots = [];
-        let adUnits;
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
@@ -130,6 +128,9 @@ function main(){
         pbjs.que = pbjs.que || [];
 
         setPrebidConfig(pbjs);
+    
+        var adSlots = [];
+        let adUnits;
 
         document.querySelectorAll('.inads').forEach(node => {
             adSlots.push(node.id);
