@@ -152,8 +152,11 @@ function main(){
             defineSlots(adUnits);
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
+            console.log("Google Tag")
             adUnits.forEach(adunit => {
+              console.log("Render Start")
               googletag.display(adunit.code);
+              console.log("Render Check")
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
                console.log("ADS RENDERED")
@@ -222,15 +225,17 @@ function main(){
 
             if(index === (total - 1)){
                initBidsRTBH()
-               pbjs.que.push(function() {
-                 pbjs.requestBids({
-                   timeout: 1000,
-                   bidsBackHandler: function() {
-                     pbjs.setTargetingForGPTAsync();
-                     googletag.pubads().refresh();
-                   }
-                 });
-               });
+                  if(pbjs.initAdserverSet)
+                       pbjs.que.push(function() {
+                         pbjs.requestBids({
+                           timeout: 1000,
+                           bidsBackHandler: function() {
+                             pbjs.setTargetingForGPTAsync();
+                             googletag.pubads().refresh();
+                           }
+                         });
+                       });
+                }
             }
     }
 
