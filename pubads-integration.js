@@ -108,14 +108,16 @@ function main(){
         var adSlots = [];
         let adUnits;
 
-        var googletag = googletag || {};
+         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
+        
+         window.googletag = googletag || {};
+         googletag.cmd = googletag.cmd || [];
+         
          googletag.cmd.push(function() {
              console.log("Push")
          });
         
-        window.googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
         
         googletag.cmd.push(() => {
             googletag.pubads().disableInitialLoad();
@@ -213,12 +215,15 @@ function main(){
     function InAdsEMPBid(element, index, total){
             var googletag = googletag || {};
              googletag.cmd = googletag.cmd || [];
+            
+            window.googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+        
              googletag.cmd.push(function() {
                  console.log("Push")
              });
 
-            window.googletag = googletag || {};
-            googletag.cmd = googletag.cmd || [];
+            
 
             if(!pbjs.initAdserverSet){
                 if (element.getAttribute("name") == "inadsquare") {
