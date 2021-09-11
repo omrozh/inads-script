@@ -107,18 +107,15 @@ function main(){
         const region = "prebid-eu";
         var adSlots = [];
         let adUnits;
-        
-        
-
-
-        window.googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
          googletag.cmd.push(function() {
              console.log("Push")
          });
+        
+        window.googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
 
         if(window.initRTB){
             return;
