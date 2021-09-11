@@ -56,7 +56,6 @@ function main(){
 
     (function () {
         var gads = document.createElement('script');
-        gads.async = false;
         gads.type = 'text/javascript';
         var useSSL = 'https:' == document.location.protocol;
         gads.src = (useSSL ? 'https:' : 'http:') +
@@ -118,6 +117,8 @@ function main(){
         if(window.initRTB){
             return;
         }    
+        
+        window.googletag = googletag;
 
         window.pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
