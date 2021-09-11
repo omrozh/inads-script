@@ -152,11 +152,11 @@ function main(){
             defineSlots(adUnits);
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
-            console.log("Google Tag")
+            alert("Google Tag")
             adUnits.forEach(adunit => {
-              console.log("Render Start")
+              alert("Render Start")
               googletag.display(adunit.code);
-              console.log("Render Check")
+              alert("Render Check")
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
                console.log("ADS RENDERED")
@@ -211,6 +211,15 @@ function main(){
     }
 
     function InAdsEMPBid(element, index, total){
+            var googletag = googletag || {};
+             googletag.cmd = googletag.cmd || [];
+             googletag.cmd.push(function() {
+                 console.log("Push")
+             });
+
+            window.googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+
             if(!pbjs.initAdserverSet){
                 if (element.getAttribute("name") == "inadsquare") {
                     element.setAttribute("id", "inads-test-banner-300x250" + getRandomInt(1000, 9999))
