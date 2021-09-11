@@ -98,7 +98,6 @@ function main(){
         googletag.cmd.push(function() {
             pbjs.que.push(function() {
                 pbjs.setTargetingForGPTAsync();
-                googletag.pubads().refresh();
             });
         });
     }
@@ -112,11 +111,18 @@ function main(){
 
         var googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
-         googletag.cmd.push(function() {
-           googletag.pubads().disableInitialLoad();
-         });
 
         if(window.initRTB){
+            pbjs.que.push(function() {
+                 pbjs.requestBids({
+                   timeout: 1000,
+                   bidsBackHandler: function() {
+                     pbjs.setTargetingForGPTAsync();
+                     googletag.pubads().refresh();
+                   }
+                 });
+               });
+            }
             return;
         }    
 
@@ -215,16 +221,6 @@ function main(){
 
             if(index === (total - 1)){
                initBidsRTBH()
-               pbjs.que.push(function() {
-                 pbjs.requestBids({
-                   timeout: 1000,
-                   bidsBackHandler: function() {
-                     pbjs.setTargetingForGPTAsync();
-                     googletag.pubads().refresh();
-                   }
-                 });
-               });
-            }
     }
 
     function createAds(element, index, total){
