@@ -63,20 +63,6 @@ function main(){
         var node = document.getElementsByTagName('script')[0];
         node.parentNode.insertBefore(gads, node);
     })();
-    
-   const renderDisplayPlaceholder = (slot, slotName) => {
-      if (slot) {
-        const slotDiv = document.querySelector(`#${slotName}`);
-        const placeholder = document.createElement('img');
-        const slotSizesForUrl = slot.mediaTypes.banner.sizes[0].toString().replace(',', 'x');
-        const placeholderUrl = `https://place-hold.it/${slotSizesForUrl}/452846/fff?text=${slotSizesForUrl}+-+No+ad`;
-
-        placeholder.src = placeholderUrl;
-        slotDiv.appendChild(placeholder);
-        toggleSlotLoading(slotDiv);
-      }
-    }
-    
 
     const defineSlots = (adUnits) => {
       adUnits.forEach(adUnit => {
@@ -110,7 +96,6 @@ function main(){
         googletag.cmd.push(function() {
             pbjs.que.push(function() {
                 googletag.pubads().refresh();
-                console.log("Push Init")
             });
         });
     }
@@ -124,11 +109,6 @@ function main(){
 
          window.googletag = googletag || {};
          googletag.cmd = googletag.cmd || [];
-         
-         googletag.cmd.push(function() {
-             console.log("Push")
-         });
-        
         
         googletag.cmd.push(() => {
             googletag.pubads().disableInitialLoad();
@@ -169,10 +149,7 @@ function main(){
               googletag.display(adunit.code);
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-               const slotCode = event.slot.getAdUnitPath().substring(27);
-               const slot = window.adUnits.filter(unit => unit.code.includes(slotCode))[0];
-                
-               renderDisplayPlaceholder(slot, slotCode);
+               console.log("Ad Render Ended")
            })
          });
 
@@ -227,11 +204,6 @@ function main(){
             
             window.googletag = googletag || {};
             googletag.cmd = googletag.cmd || [];
-        
-             googletag.cmd.push(function() {
-                 console.log("Push")
-             });
-
             
 
             if(!pbjs.initAdserverSet){
@@ -266,8 +238,6 @@ function main(){
       fetch("https://www.inadsglobal.com/view/" + element.getAttribute("name") + "/" + document.title)
       .then(res=>{adname = res.url.substring(res.url.lastIndexOf("/") + 1); element.setAttribute('onclick', "inadsclick(" + adname + ", this)"); return res.text()})
       .then(blob=>{
-
-        console.log("%c Adverts by InAds ", "background:rgb(0, 255, 255); color: white")
 
         if(!(blob.includes("data"))){
             InAdsEMPBid(element, index, total)
