@@ -64,6 +64,19 @@ function main(){
         node.parentNode.insertBefore(gads, node);
     })();
     
+   const renderDisplayPlaceholder = (slot, slotName) => {
+      if (slot) {
+        const slotDiv = document.querySelector(`#${slotName}`);
+        const placeholder = document.createElement('img');
+        const slotSizesForUrl = slot.mediaTypes.banner.sizes[0].toString().replace(',', 'x');
+        const placeholderUrl = `https://place-hold.it/${slotSizesForUrl}/452846/fff?text=${slotSizesForUrl}+-+No+ad`;
+
+        placeholder.src = placeholderUrl;
+        slotDiv.appendChild(placeholder);
+        toggleSlotLoading(slotDiv);
+      }
+    }
+    
 
     const defineSlots = (adUnits) => {
       adUnits.forEach(adUnit => {
@@ -156,7 +169,10 @@ function main(){
               googletag.display(adunit.code);
             });
             googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-               console.log("ADS RENDERED")
+               const slotCode = event.slot.getAdUnitPath().substring(27);
+               const slot = window.adUnits.filter(unit => unit.code.includes(slotCode))[0];
+                
+               renderDisplayPlaceholder(slot, slotCode);
            })
          });
 
