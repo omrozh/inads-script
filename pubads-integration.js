@@ -175,7 +175,7 @@ function main(){
     }
 
     function adGroupCreateScroll(element){
-        var insertadgroupersquare = '<div class="inads" name=inadsquare src="" alt="" style="float: left; width: 50%;"></div>';
+        var insertadgroupersquare = '<img class="inads" name=inadsquare src="" alt="" style="float: left; width: 50%;">';
         element.insertAdjacentHTML("afterbegin", insertadgroupersquare + insertadgroupersquare + insertadgroupersquare + insertadgroupersquare)
     }
 
