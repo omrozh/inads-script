@@ -5,6 +5,11 @@ let textcontent = ""
 window.initRTB = false
 const GAM_PATH = '/31695560/header-bid-tag-0';
 
+function inadsclick(index, elemnt){
+    window.open("https://www.inadsglobal.com/adclick/" + index)
+    elemnt.setAttribute("onclick", "window.open('https://www.inadsglobal.com/adclick/" + index + "/secondclick')")
+}
+
 function main(){
     class adUnit {
     constructor(slot, region) {
@@ -334,11 +339,6 @@ function main(){
 
     for(var i = 0; i < adElements.length; i++) {
         createAds(adElements[i], i, adElements.length)
-    }
-
-    function inadsclick(index, elemnt){
-        window.open("https://www.inadsglobal.com/adclick/" + index)
-        elemnt.setAttribute("onclick", "window.open('https://www.inadsglobal.com/adclick/" + index + "/secondclick')")
     }
 
     function elementInViewport(el) {
