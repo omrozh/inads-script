@@ -1,0 +1,70 @@
+{
+    "contact_address": "Bahçeşehir 1. kısım, Asmalı cad. No:24",
+    "contact_email": "Atahan Abzak <atahana@inadsglobal.com>",
+    "version": 1.0,
+    "ext": {
+      "last_updated": "11-11-2021"
+    },
+    "sellers": [
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-9081136266582892",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "adm-pub-108266335578",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "adm-pub-188185194536",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-9612539386533291",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-8929667634210480",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-9714942038941040",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-5092018972572376",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-509201897257237",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-5092018972572376",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-5037980398676429",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-4133813641255581",
+        "seller_type": "Publisher"
+        },
+        {
+        "is_confidential": 1,
+        "seller_id": "ca-pub-4133813641255581",
+        "seller_type": "Publisher"
+        }
+    ]
+}
